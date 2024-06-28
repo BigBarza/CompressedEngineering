@@ -1,12 +1,10 @@
 package com.pression.compressedengineering.mixin;
 
 import blusunrize.immersiveengineering.api.crafting.CokeOvenRecipe;
-import blusunrize.immersiveengineering.common.register.IEFluids;
 import blusunrize.immersiveengineering.common.util.compat.jei.cokeoven.CokeOvenRecipeCategory;
 import com.pression.compressedengineering.interfaces.CokeOvenFluidOutput;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.recipe.IFocusGroup;
-import net.minecraftforge.fluids.FluidStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -33,12 +31,7 @@ public class CokeOvenJEIMixin {
             index = 1
     )
     private Object setFluid(Object fluid){
-        fluid = (FluidStack) fluid;
         CokeOvenFluidOutput recipe = (CokeOvenFluidOutput) currentRecipe;
-        if(recipe.getFluidOutput() == FluidStack.EMPTY){
-            //If there's no custom fluid set, add a fluidstack of creosote.
-            return new FluidStack(IEFluids.CREOSOTE.getStill(), currentRecipe.creosoteOutput);
-        }
-        else return recipe.getFluidOutput(); //Add the custom fluidstack
+        return recipe.getFluidOutput(); //Add the custom fluidstack
     }
 }

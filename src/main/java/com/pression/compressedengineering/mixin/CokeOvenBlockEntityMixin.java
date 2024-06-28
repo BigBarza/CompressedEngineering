@@ -27,12 +27,6 @@ public class CokeOvenBlockEntityMixin {
             currentRecipe = recipe;
         }
 
-        /*@ModifyVariable(method = "tickServer()V", at = @At(value = "INVOKE", target = "Lblusunrize/immersiveengineering/common/blocks/stone/CokeOvenBlockEntity;getRecipe()Lblusunrize/immersiveengineering/api/crafting/CokeOvenRecipe;"))
-        private CokeOvenRecipe capture(CokeOvenRecipe recipe){
-            currentRecipe = recipe;
-            return recipe;
-        }*/
-
         @Redirect(method = "tickServer()V", remap = false, at = @At(value = "INVOKE", target = "Lnet/minecraftforge/fluids/capability/templates/FluidTank;fill(Lnet/minecraftforge/fluids/FluidStack;Lnet/minecraftforge/fluids/capability/IFluidHandler$FluidAction;)I"))
         private int fillTank(FluidTank tank, FluidStack resource, IFluidHandler.FluidAction action){
             CokeOvenFluidOutput fluid = (CokeOvenFluidOutput) currentRecipe;
@@ -40,8 +34,4 @@ public class CokeOvenBlockEntityMixin {
             return tank.fill(resource, action);
         }
 
-        /*@ModifyArg(method = "tickServer()V", remap = false, at = @At(value = "INVOKE", target = "Lnet/minecraftforge/fluids/capability/templates/FluidTank;fill(Lnet/minecraftforge/fluids/FluidStack;Lnet/minecraftforge/fluids/capability/IFluidHandler$FluidAction;)I"), index = 0)
-        private @NotNull FluidStack switchFluid(FluidStack f){
-            return new FluidStack(Fluids.LAVA, 10);
-        }*/
 }
