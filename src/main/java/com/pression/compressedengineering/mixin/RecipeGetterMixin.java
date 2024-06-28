@@ -14,6 +14,8 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 @Mixin(CokeOvenBlockEntity.class)
 public abstract class RecipeGetterMixin {
     @Shadow(remap = false) public FluidTank tank;
+
+    //getRecipe() is responsible for fetching the matching recipe for the input and checking if it can be processed.
     @Inject(remap = false, method = "getRecipe()Lblusunrize/immersiveengineering/api/crafting/CokeOvenRecipe;", cancellable = true, at = @At(value = "RETURN"), locals = LocalCapture.CAPTURE_FAILSOFT)
     private void fluidRecipeCheck(CallbackInfoReturnable<CokeOvenRecipe> cir, CokeOvenRecipe recipe){
         if(cir.getReturnValue() == null) return; //We want to leave the other returns alone.
@@ -25,31 +27,3 @@ public abstract class RecipeGetterMixin {
         cir.setReturnValue(null); //If we got here, the check has failed and no recipe should be actually returned.
     }
 }
-
-//Previous mixin, this is here as a backup
-
-/*
-    @Final
-    @Shadow(remap = false) private Supplier<CokeOvenRecipe> cachedRecipe;
-    @Final @Shadow(remap = false) private NonNullList<ItemStack> inventory;
-    @Final @Shadow(remap = false) public static int OUTPUT_SLOT;
-    @Shadow(remap = false) public abstract int getSlotLimit(int slot);
-
-
-    @Nullable
-    @Overwrite(remap = false)
-    public CokeOvenRecipe getRecipe()
-    {
-        CokeOvenRecipe recipe = cachedRecipe.get();
-        if(recipe==null)
-            return null;
-        CokeOvenFluidOutput fluidOutput = (CokeOvenFluidOutput) recipe;
-        if(inventory.get(OUTPUT_SLOT).isEmpty()||(ItemStack.isSame(inventory.get(OUTPUT_SLOT), recipe.output.get())&&
-                inventory.get(OUTPUT_SLOT).getCount()+recipe.output.get().getCount() <= getSlotLimit(OUTPUT_SLOT)))
-            //if(tank.getFluidAmount()+recipe.creosoteOutput <= tank.getCapacity())
-            if((tank.getFluid().isFluidEqual(fluidOutput.getFluidOutput()) || tank.isEmpty()) && (tank.getFluidAmount() + fluidOutput.getFluidOutput().getAmount() <= tank.getCapacity()))
-                return recipe;
-        return null;
-    }
-    */
-

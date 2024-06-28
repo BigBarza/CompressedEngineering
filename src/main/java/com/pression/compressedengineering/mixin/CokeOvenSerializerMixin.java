@@ -18,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+//This mixin handles the loading of recipes from json, by loading the fluid field as well.
 @Mixin(CokeOvenRecipeSerializer.class)
 abstract public class CokeOvenSerializerMixin extends IERecipeSerializer<CokeOvenRecipe> {
 
@@ -30,30 +31,32 @@ abstract public class CokeOvenSerializerMixin extends IERecipeSerializer<CokeOve
         CokeOvenRecipe recipe = cir.getReturnValue();
         int oil = recipe.creosoteOutput;
         FluidStack fluid = FluidStack.EMPTY;
-        if(oil > 0){
+        if(oil > 0){ //Means a creosote value was set
             fluid = new FluidStack(IEFluids.CREOSOTE.getStill(), oil);
         }
-        if(json.has("fluid")){
-            oil = 1;
-            fluid = ApiUtils.jsonDeserializeFluidStack(GsonHelper.getAsJsonObject(json, "fluid"));
+        if(json.has("fluid")){ //We let custom fluid outputs have priority
+            oil = 1; //This is a dummy value to ensure JEI draws the fluid when viewing the recipe.
+            fluid = ApiUtils.jsonDeserializeFluidStack(GsonHelper.getAsJsonObject(json, "fluid")); //This is 100% from the fermenter recipe serializer.
         }
-        CokeOvenRecipe newRecipe = new CokeOvenRecipe(recipeId, recipe.output, recipe.input, recipe.time, oil);
+        CokeOvenRecipe newRecipe = new CokeOvenRecipe(recipeId, recipe.output, recipe.input, recipe.time, oil); //we rebuild the recipe since we cannot modify the oil value.
         CokeOvenFluidOutput recipeFluid = (CokeOvenFluidOutput) newRecipe;
         recipeFluid.setFluidOutput(fluid);
         cir.setReturnValue(newRecipe);
     }
 
+    //If the serializer cannot find a creosote field, it won't load the recipe. This injector springs in action before that and adds the field if it's not present.
     @Inject(
             method = "readFromJson(Lnet/minecraft/resources/ResourceLocation;Lcom/google/gson/JsonObject;Lnet/minecraftforge/common/crafting/conditions/ICondition$IContext;)Lblusunrize/immersiveengineering/api/crafting/CokeOvenRecipe;",
             remap = false,
             at = @At(value = "HEAD")
     )
-    private void recipeSafeguard(ResourceLocation recipeId, JsonObject json, ICondition.IContext context, CallbackInfoReturnable<CokeOvenRecipe> cir){ //This is just a small safeguard because with this, the creosote field might be missing. IT just sets it to 0.
+    private void recipeSafeguard(ResourceLocation recipeId, JsonObject json, ICondition.IContext context, CallbackInfoReturnable<CokeOvenRecipe> cir){
         if(!json.has("creosote")){
             json.addProperty("creosote", 0);
         }
     }
 
+    //I'm going to be honest, I don't know what these two do. I just modified them to accommodate the fluid.
     @Inject(method = "fromNetwork(Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/network/FriendlyByteBuf;)Lblusunrize/immersiveengineering/api/crafting/CokeOvenRecipe;",
     remap = false, at = @At("RETURN"), cancellable = true)
     private void onFromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer, CallbackInfoReturnable<CokeOvenRecipe> cir){
@@ -72,51 +75,3 @@ abstract public class CokeOvenSerializerMixin extends IERecipeSerializer<CokeOve
     }
 
 }
-
-/* Original mixins, here as a backup.
-    @Overwrite(remap = false)
-    public CokeOvenRecipe readFromJson(ResourceLocation recipeId, JsonObject json, IContext context){
-        Lazy<ItemStack> output = readOutput(json.get("result"));
-        IngredientWithSize input = IngredientWithSize.deserialize(json.get("input"));
-        int time = GsonHelper.getAsInt(json, "time");
-        int oil = 0; //If there's no creosote nor other fluid, this must be 0 to ensure fluids don't get drawn in jei.
-        FluidStack fluidOutput = FluidStack.EMPTY;
-        if(json.has("creosote")){
-            oil = GsonHelper.getAsInt(json, "creosote");
-            fluidOutput = new FluidStack(IEFluids.CREOSOTE.getStill(), oil);
-        }
-        if(json.has("fluid")){
-            fluidOutput = ApiUtils.jsonDeserializeFluidStack(GsonHelper.getAsJsonObject(json, "fluid"));
-            oil = 1; //Dummy value to ensure fluids get drawn anyway
-        }
-        CokeOvenRecipe recipe = new CokeOvenRecipe(recipeId, output, input, time, oil);
-        CokeOvenFluidOutput fluidAdder = (CokeOvenFluidOutput) recipe;
-        fluidAdder.setFluidOutput(fluidOutput);
-        return recipe;
-    }
-
-    @Overwrite(remap = false)
-    public CokeOvenRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer)
-    {
-        Lazy<ItemStack> output = readLazyStack(buffer);
-        IngredientWithSize input = IngredientWithSize.read(buffer);
-        int time = buffer.readInt();
-        int oil = buffer.readInt();
-        FluidStack fluid = buffer.readFluidStack();
-        CokeOvenRecipe recipe = new CokeOvenRecipe(recipeId, output, input, time, oil);
-        CokeOvenFluidOutput fluidAdder = (CokeOvenFluidOutput) recipe;
-        fluidAdder.setFluidOutput(fluid);
-        return recipe;
-    }
-
-    @Overwrite(remap = false)
-    public void toNetwork(FriendlyByteBuf buffer, CokeOvenRecipe recipe)
-    {
-        writeLazyStack(buffer, recipe.output);
-        recipe.input.write(buffer);
-        buffer.writeInt(recipe.time);
-        buffer.writeInt(recipe.creosoteOutput);
-        CokeOvenFluidOutput fluidReader = (CokeOvenFluidOutput) recipe;
-        buffer.writeFluidStack(fluidReader.getFluidOutput());
-    }
-*/
