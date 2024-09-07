@@ -1,7 +1,10 @@
 ## Compressed Engineering
 
 This mod contains tweaks to Immersive Engineering for the Compression modpack.
-Currently, it allows the coke oven to have custom fluid outputs instead of just the hardcoded creosote oil. It adds no recipes on its own.
+
+### Features
+- Allows the coke oven to have custom fluid outputs instead of just the hardcoded creosote oil. It adds no recipes on its own.  
+- Prevents a crash when more than 13 items are assigned to an engineering blueprint. Specifically, it would crash when removing said bp.
 
 Curseforge link: https://legacy.curseforge.com/minecraft/mc-mods/compressed-engineering
 
@@ -9,7 +12,7 @@ Compression modpack: https://www.curseforge.com/minecraft/modpacks/compression
 
 Compression Discord: https://discord.gg/dz7UJ7sDmU
 
-### Usage
+### Changing the fluid of a coke oven recipe
 ```
 {
  "type": "immersiveengineering:coke_oven",
@@ -36,6 +39,9 @@ Compression Discord: https://discord.gg/dz7UJ7sDmU
 
 - *Q: What happens if there's a different fluid in the output?*
   - A: The recipe simply won't start.
+
+- *Q: Is there a new cap for the blueprint crash fix?*
+  - A: Yes, 33 recipes. Other things usually break before it gets there.
 
 - *Q: These mixins look cursed.*
   - A: Mixins are like dark and forbidden magic. Nothing to be concerned about
