@@ -7,6 +7,7 @@ This mod contains tweaks to Immersive Engineering for the Compression modpack.
 - Prevents a crash when more than 13 items are assigned to an engineering blueprint. Specifically, it would crash when removing said bp.
 - Adds two new recipe types (compressedengineering:assembler_shaped and compressedengineering:assembler_shapeless)
   - They're identical to crafting recipes but can only be done in the IE Assembler
+- New JEI integration for excavator veins, complete with custom graphs and more info visible to the player 
 
 Curseforge link: https://legacy.curseforge.com/minecraft/mc-mods/compressed-engineering
 
