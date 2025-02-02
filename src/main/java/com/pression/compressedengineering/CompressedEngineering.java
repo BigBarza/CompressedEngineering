@@ -1,7 +1,7 @@
 package com.pression.compressedengineering;
 
 import com.mojang.logging.LogUtils;
-import com.pression.compressedengineering.recipe.IERecipeTypes;
+import com.pression.compressedengineering.recipe.CERecipeTypes;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -16,7 +16,8 @@ public class CompressedEngineering
     public CompressedEngineering(){
         LOGGER.info("Hexagons are the bestagons!");
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        IERecipeTypes.RECIPE_TYPES.register(modEventBus);
-        IERecipeTypes.RECIPE_SERIALIZERS.register(modEventBus);
+        CERecipeTypes.RECIPE_TYPES.register(modEventBus);
+        CERecipeTypes.RECIPE_SERIALIZERS.register(modEventBus);
+
     }
 }

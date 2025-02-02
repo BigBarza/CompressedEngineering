@@ -22,12 +22,12 @@ public class ShapedAssemblerRecipe extends ShapedRecipe{
 
     @Override
     public RecipeType<?> getType(){
-        return IERecipeTypes.SHAPED_ASSEMBLY_RECIPE_TYPE.get();
+        return CERecipeTypes.SHAPED_ASSEMBLY_RECIPE_TYPE.get();
     }
 
     @Override
     public RecipeSerializer<?> getSerializer(){
-        return IERecipeTypes.SHAPED_ASSEMBLY_SERIALIZER.get();
+        return CERecipeTypes.SHAPED_ASSEMBLY_SERIALIZER.get();
     }
 
     public static class Serializer implements RecipeSerializer<ShapedAssemblerRecipe> {

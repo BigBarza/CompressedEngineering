@@ -22,12 +22,12 @@ public class ShapelessAssemblerRecipe extends ShapelessRecipe {
 
     @Override
     public RecipeType<?> getType(){
-        return IERecipeTypes.SHAPELESS_ASSEMBLY_RECIPE_TYPE.get();
+        return CERecipeTypes.SHAPELESS_ASSEMBLY_RECIPE_TYPE.get();
     }
 
     @Override
     public RecipeSerializer<?> getSerializer(){
-        return IERecipeTypes.SHAPELESS_ASSEMBLY_SERIALIZER.get();
+        return CERecipeTypes.SHAPELESS_ASSEMBLY_SERIALIZER.get();
     }
 
     public static class Serializer implements RecipeSerializer<ShapelessAssemblerRecipe> {

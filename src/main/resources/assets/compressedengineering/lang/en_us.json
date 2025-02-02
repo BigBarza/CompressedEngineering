@@ -1,3 +1,13 @@
 {
-  "compressedengineering.jei.assembler_title": "Assembler"
+  "compressedengineering.jei.assembler_title": "Assembler",
+  "compressedengineering.jei.excavator_title": "Excavator Veins",
+  "compressedengineering.jei.basefailchance": "Base Chance For Spoils: %s",
+  "compressedengineering.jei.basefailchance_nospoils": "Chance To Get Nothing: %s",
+  "compressedengineering.jei.outputchance": "Chance: %s",
+  "compressedengineering.jei.dimensions_list": "Allowed dimension IDs:",
+  "compressedengineering.jei.spoils_guide": "The excavator can fail to produce an output and instead produce a spoil. This check is done twice, first with the vein's base failure chance, and a second time with a chance based on the saturation, determined by how close the excavator is to the middle of the vein",
+  "compressedengineering.jei.core_sample_disclaimer": "Disclaimer: This core sample is just here as an example and does not reflect this world's mineral veins.",
+  "compressedengineering.jei.vein_weight_1": "Weight: %s",
+  "compressedengineering.jei.vein_weight_2": "A higher weight value makes the vein more frequent compared to other veins."
+
 }
