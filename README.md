@@ -8,6 +8,8 @@ This mod contains tweaks to Immersive Engineering for the Compression modpack.
 - Adds two new recipe types (compressedengineering:assembler_shaped and compressedengineering:assembler_shapeless)
   - They're identical to crafting recipes but can only be done in the IE Assembler
 - New JEI integration for excavator veins, complete with custom graphs and more info visible to the player 
+- Allows electrodes to be input and output from the arc furnace. I/O point is the electrode holder on top.
+- Fixes an issue where the secondary output chance for the arc furnace is inverted.
 
 Curseforge link: https://legacy.curseforge.com/minecraft/mc-mods/compressed-engineering
 
