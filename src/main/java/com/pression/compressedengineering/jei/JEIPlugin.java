@@ -2,8 +2,7 @@ package com.pression.compressedengineering.jei;
 
 import blusunrize.immersiveengineering.api.crafting.IERecipeTypes;
 import blusunrize.immersiveengineering.api.excavator.MineralMix;
-import blusunrize.immersiveengineering.common.register.IEBlocks;
-import blusunrize.immersiveengineering.common.util.compat.jei.AssemblerRecipeTransferHandler;
+import blusunrize.immersiveengineering.common.register.IEMultiblockLogic;
 import com.pression.compressedengineering.CompressedEngineering;
 import com.pression.compressedengineering.recipe.CERecipeTypes;
 import com.pression.compressedengineering.recipe.ShapedAssemblerRecipe;
@@ -16,7 +15,6 @@ import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.IRecipeTransferRegistration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
@@ -59,14 +57,14 @@ public class JEIPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration){
-        registration.addRecipeCatalyst(new ItemStack(IEBlocks.Multiblocks.ASSEMBLER), AssemblerRecipeCategory.TYPE);
-        registration.addRecipeCatalyst(new ItemStack(IEBlocks.Multiblocks.EXCAVATOR), MineralMixRecipeCategory.TYPE);
-        registration.addRecipeCatalyst(new ItemStack(IEBlocks.Multiblocks.BUCKET_WHEEL), MineralMixRecipeCategory.TYPE);
+        registration.addRecipeCatalyst(IEMultiblockLogic.ASSEMBLER.iconStack(), AssemblerRecipeCategory.TYPE);
+        registration.addRecipeCatalyst(IEMultiblockLogic.EXCAVATOR.iconStack(), MineralMixRecipeCategory.TYPE);
+        registration.addRecipeCatalyst(IEMultiblockLogic.BUCKET_WHEEL.iconStack(), MineralMixRecipeCategory.TYPE);
     }
 
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration){
-        registration.addRecipeTransferHandler(new AssemblerRecipeTransferHandler(registration.getTransferHelper()), AssemblerRecipeCategory.TYPE);
+        registration.addRecipeTransferHandler(new AssemblerOnlyRecipeTransferHandler(registration.getTransferHelper()), AssemblerRecipeCategory.TYPE);
     }
 
 }

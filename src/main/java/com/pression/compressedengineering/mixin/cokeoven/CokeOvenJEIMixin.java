@@ -1,4 +1,4 @@
-package com.pression.compressedengineering.mixin;
+package com.pression.compressedengineering.mixin.cokeoven;
 
 import blusunrize.immersiveengineering.api.crafting.CokeOvenRecipe;
 import blusunrize.immersiveengineering.common.util.compat.jei.cokeoven.CokeOvenRecipeCategory;

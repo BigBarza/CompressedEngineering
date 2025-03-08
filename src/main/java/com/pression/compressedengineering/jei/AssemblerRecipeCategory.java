@@ -1,8 +1,7 @@
 package com.pression.compressedengineering.jei;
 
-import blusunrize.immersiveengineering.common.register.IEBlocks;
+import blusunrize.immersiveengineering.common.register.IEMultiblockLogic;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.pression.compressedengineering.CompressedEngineering;
 import com.pression.compressedengineering.recipe.ShapedAssemblerRecipe;
 import com.pression.compressedengineering.recipe.ShapelessAssemblerRecipe;
@@ -14,9 +13,10 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -36,7 +36,7 @@ public class AssemblerRecipeCategory implements IRecipeCategory<CraftingRecipe> 
     public AssemblerRecipeCategory(IGuiHelper guiHelper){
         this.title = Component.translatable("compressedengineering.jei.assembler_title");
         this.background = guiHelper.createDrawable(texture, 0,0,125,68);
-        this.icon = guiHelper.createDrawableItemStack(new ItemStack(IEBlocks.Multiblocks.ASSEMBLER));
+        this.icon = guiHelper.createDrawableItemStack(IEMultiblockLogic.ASSEMBLER.iconStack());
         this.shapeless = guiHelper.createDrawable(texture, 126,1,14,14);
     }
 
@@ -59,6 +59,12 @@ public class AssemblerRecipeCategory implements IRecipeCategory<CraftingRecipe> 
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, CraftingRecipe recipe, IFocusGroup focuses) {
+
+        assert Minecraft.getInstance().level != null;
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 99, 26).addItemStack(recipe.getResultItem(
+                Minecraft.getInstance().level.registryAccess()
+        ));
+
         int xOffset = 9;
         int yOffset = 8;
         List<Ingredient> ingredientList = new ArrayList<>();
@@ -86,15 +92,14 @@ public class AssemblerRecipeCategory implements IRecipeCategory<CraftingRecipe> 
                 yOffset += 18;
             }
         }
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 99, 26).addItemStack(recipe.getResultItem());
 
     }
 
     @Override
-    public void draw(CraftingRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) {
+    public void draw(CraftingRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
         if(recipe instanceof ShapelessAssemblerRecipe r){
-            shapeless.draw(stack, 69, 12); //nice.
+            shapeless.draw(graphics, 69, 12); //nice.
         }
         RenderSystem.disableBlend();
     }

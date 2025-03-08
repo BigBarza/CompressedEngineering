@@ -1,23 +1,28 @@
 package com.pression.compressedengineering.recipe;
 
 import com.google.gson.JsonObject;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.crafting.*;
+
 import javax.annotation.Nullable;
 
 public class ShapedAssemblerRecipe extends ShapedRecipe{
 
     public ShapedAssemblerRecipe(ResourceLocation p_44153_, String p_44154_, int p_44155_, int p_44156_, NonNullList<Ingredient> p_44157_, ItemStack p_44158_) {
-        super(p_44153_, p_44154_, p_44155_, p_44156_, p_44157_, p_44158_);
+        super(p_44153_, p_44154_, CraftingBookCategory.MISC, p_44155_, p_44156_, p_44157_, p_44158_);
     }
     public ShapedAssemblerRecipe(ShapedRecipe r){
-        super(r.getId(), r.getGroup(), r.getRecipeWidth(), r.getRecipeHeight(), r.getIngredients(), r.getResultItem());
+        super(r.getId(), r.getGroup(), CraftingBookCategory.MISC, r.getRecipeWidth(), r.getRecipeHeight(), r.getIngredients(),
+                r.getResultItem(Minecraft.getInstance().level != null ? Minecraft.getInstance().level.registryAccess() : null));
+        r.getIngredients().forEach(ingredient -> {
+            for(ItemStack item : ingredient.getItems()){
+                System.out.println(item.getItem());
+            }
+        });
     }
 
     @Override

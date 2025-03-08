@@ -1,4 +1,4 @@
-package com.pression.compressedengineering.mixin;
+package com.pression.compressedengineering.mixin.arcfurnace;
 
 import blusunrize.immersiveengineering.api.crafting.ArcFurnaceRecipe;
 import blusunrize.immersiveengineering.api.crafting.StackWithChance;

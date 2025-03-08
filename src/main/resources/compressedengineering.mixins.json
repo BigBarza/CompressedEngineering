@@ -5,16 +5,16 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "compressedengineering.refmap.json",
   "mixins": [
-    "ArcFurnaceMixin",
-    "ArcFurnaceRecipeMixin",
+    "arcfurnace.ArcFurnaceLogicMixin",
+    "arcfurnace.ArcFurnaceRecipeMixin",
+    "arcfurnace.ArcFurnaceStateMixin",
     "AssemblerRecipeMixin",
-    "CokeOvenBlockEntityMixin",
-    "CokeOvenJEIMixin",
-    "CokeOvenRecipeMixin",
-    "CokeOvenSerializerMixin",
-    "IEBlockEntityMixin",
+    "cokeoven.CokeOvenBlockEntityMixin",
+    "cokeoven.CokeOvenJEIMixin",
+    "cokeoven.CokeOvenRecipeMixin",
+    "cokeoven.CokeOvenSerializerMixin",
     "ModWorkbenchSlotsMixin",
-    "RecipeGetterMixin"
+    "cokeoven.RecipeGetterMixin"
   ],
   "client": [],
   "injectors": {
