@@ -1,4 +1,4 @@
-package com.pression.compressedengineering.mixin;
+package com.pression.compressedengineering.mixin.cokeoven;
 
 import com.pression.compressedengineering.interfaces.CokeOvenFluidOutput;
 import org.spongepowered.asm.mixin.Mixin;

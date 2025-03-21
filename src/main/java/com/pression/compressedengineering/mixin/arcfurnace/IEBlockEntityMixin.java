@@ -1,4 +1,4 @@
-package com.pression.compressedengineering.mixin;
+package com.pression.compressedengineering.mixin.arcfurnace;
 
 import blusunrize.immersiveengineering.common.blocks.IEBaseBlockEntity;
 import blusunrize.immersiveengineering.common.util.ResettableCapability;

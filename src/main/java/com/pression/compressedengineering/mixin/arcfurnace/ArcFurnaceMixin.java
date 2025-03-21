@@ -1,4 +1,4 @@
-package com.pression.compressedengineering.mixin;
+package com.pression.compressedengineering.mixin.arcfurnace;
 
 import blusunrize.immersiveengineering.common.blocks.metal.ArcFurnaceBlockEntity;
 import blusunrize.immersiveengineering.common.register.IEItems;
@@ -6,6 +6,7 @@ import blusunrize.immersiveengineering.common.util.MultiblockCapability;
 import blusunrize.immersiveengineering.common.util.ResettableCapability;
 import blusunrize.immersiveengineering.common.util.inventory.IEInventoryHandler;
 import blusunrize.immersiveengineering.common.util.inventory.IIEInventory;
+import com.pression.compressedengineering.CommonConfig;
 import com.pression.compressedengineering.interfaces.IElectrodeHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -23,8 +24,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
+//This mixin implements the capability to automatically input and output electrodes from the arc furnace.
 @Mixin(ArcFurnaceBlockEntity.class)
 public abstract class ArcFurnaceMixin implements IElectrodeHandler {
+
+    @Unique
+    private static final boolean AUTOMATION_ALLOWED = CommonConfig.ELECTRODE_AUTOMATION.get();
+
     @Shadow(remap = false)
     public abstract ArcFurnaceBlockEntity getGuiMaster();
 
@@ -71,6 +77,7 @@ public abstract class ArcFurnaceMixin implements IElectrodeHandler {
 
     @Inject(method = "getCapability", at = @At("HEAD"), remap = false, cancellable = true)
     private <T> void injectElectrodeCapability(Capability<T> capability, Direction facing, CallbackInfoReturnable<LazyOptional<T>> cir){
+        if(!AUTOMATION_ALLOWED) return;
         if(capability == ForgeCapabilities.ITEM_HANDLER){
             if(new BlockPos(2,4,2).equals(((ArcFurnaceBlockEntity)(Object) this).posInMultiblock)){
                 cir.setReturnValue(electrodeHandler.getAndCast());
