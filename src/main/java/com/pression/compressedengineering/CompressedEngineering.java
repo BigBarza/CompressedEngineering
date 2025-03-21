@@ -2,8 +2,11 @@ package com.pression.compressedengineering;
 
 import com.mojang.logging.LogUtils;
 import com.pression.compressedengineering.recipe.CERecipeTypes;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
@@ -12,12 +15,13 @@ import org.slf4j.Logger;
 public class CompressedEngineering
 {
     public static final String MODID = "compressedengineering";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
     public CompressedEngineering(){
         LOGGER.info("Hexagons are the bestagons!");
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         CERecipeTypes.RECIPE_TYPES.register(modEventBus);
         CERecipeTypes.RECIPE_SERIALIZERS.register(modEventBus);
-
+        MinecraftForge.EVENT_BUS.register(this);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CommonConfig.SPEC);
     }
 }

@@ -18,11 +18,6 @@ public class ShapedAssemblerRecipe extends ShapedRecipe{
     public ShapedAssemblerRecipe(ShapedRecipe r){
         super(r.getId(), r.getGroup(), CraftingBookCategory.MISC, r.getRecipeWidth(), r.getRecipeHeight(), r.getIngredients(),
                 r.getResultItem(Minecraft.getInstance().level != null ? Minecraft.getInstance().level.registryAccess() : null));
-        r.getIngredients().forEach(ingredient -> {
-            for(ItemStack item : ingredient.getItems()){
-                System.out.println(item.getItem());
-            }
-        });
     }
 
     @Override
