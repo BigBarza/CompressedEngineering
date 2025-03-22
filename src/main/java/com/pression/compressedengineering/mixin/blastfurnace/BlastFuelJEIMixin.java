@@ -13,6 +13,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -25,46 +26,51 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(BlastFurnaceFuelCategory.class)
 public class BlastFuelJEIMixin {
 
-    //This flag serves to enable the changes to the category only if the IBF fuel multiplier is set to anything other than 1.
-    //Afterall, it wouldn't make sense to change it if the two burn times are going to be the same.
-    private static final boolean multFlag = CommonConfig.IMPROVED_FUEL_MULT.get() != 1;
-
     //Widen the background a bit, as we need to fit the two blast furnaces.
     @ModifyArg(method = "<init>", at =
     @At(value = "INVOKE", target = "Lmezz/jei/api/gui/drawable/IDrawableBuilder;addPadding(IIII)Lmezz/jei/api/gui/drawable/IDrawableBuilder;"),
     remap = false, index = 3)
     private int addMorePadding(int paddingRight){
-        return multFlag ? paddingRight + 24 : paddingRight;
+        return paddingRight + 24;
     }
 
     //Show the two blast furnaces next to their respective burn time text.
     @Inject(method = "setRecipe(Lmezz/jei/api/gui/builder/IRecipeLayoutBuilder;Lblusunrize/immersiveengineering/api/crafting/BlastFurnaceFuel;Lmezz/jei/api/recipe/IFocusGroup;)V",
     at = @At("TAIL"), remap = false)
     private void addFurnaces(IRecipeLayoutBuilder builder, BlastFurnaceFuel recipe, IFocusGroup focuses, CallbackInfo ci){
-        if(!multFlag) return;
         builder.addSlot(RecipeIngredientRole.CATALYST, 20, 0)
                 .addItemStack(new ItemStack(IEBlocks.Multiblocks.BLAST_FURNACE.asItem()));
         builder.addSlot(RecipeIngredientRole.CATALYST, 20, 20)
-                .addItemStack(new ItemStack(IEBlocks.Multiblocks.ADVANCED_BLAST_FURNACE.asItem()));
+                .addItemStack(new ItemStack(IEBlocks.Multiblocks.ADVANCED_BLAST_FURNACE.asItem()))
+                .addTooltipCallback((recipeSlotView, tooltip) -> {
+                    tooltip.add(Component.translatable("compressedengineering.jei.blastfuel"));
+                    tooltip.add(Component.translatable("compressedengineering.jei.no_preheaters",
+                            Utils.formatDouble(recipe.burnTime * CommonConfig.IMPROVED_FUEL_MULT.get().get(0) / CommonConfig.PREHEATER_BOOST.get().get(0)/20, "#.##"),
+                            CommonConfig.PREHEATER_BOOST.get().get(0)));
+                    tooltip.add(Component.translatable("compressedengineering.jei.one_preheater",
+                            Utils.formatDouble(recipe.burnTime * CommonConfig.IMPROVED_FUEL_MULT.get().get(1) / CommonConfig.PREHEATER_BOOST.get().get(1)/20, "#.##"),
+                            CommonConfig.PREHEATER_BOOST.get().get(1)));
+                    tooltip.add(Component.translatable("compressedengineering.jei.both_preheaters",
+                            Utils.formatDouble(recipe.burnTime * CommonConfig.IMPROVED_FUEL_MULT.get().get(2) / CommonConfig.PREHEATER_BOOST.get().get(2)/20, "#.##"),
+                            CommonConfig.PREHEATER_BOOST.get().get(2)));
+                });
     }
 
     //Move the original burn time upwards and to the right, to accommodate the second text and the blast furnace "items".
     @Redirect(method = "draw(Lblusunrize/immersiveengineering/api/crafting/BlastFurnaceFuel;Lmezz/jei/api/gui/ingredient/IRecipeSlotsView;Lcom/mojang/blaze3d/vertex/PoseStack;DD)V",
     at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Font;draw(Lcom/mojang/blaze3d/vertex/PoseStack;Ljava/lang/String;FFI)I"))
     private int moveFirstText(Font instance, PoseStack ms, String text, float x, float y, int col){
-        if(multFlag) return instance.draw(ms, text, 40, 4, col);
-        else return instance.draw(ms, text, 24, 12, col);
+        return instance.draw(ms, text, 40, 4, col);
     }
 
-    //Add the second burn time text, modified to reflect the multiplier.
+    //Add the second burn time text, hinting to hover over the IBF.
     @Inject(method = "draw(Lblusunrize/immersiveengineering/api/crafting/BlastFurnaceFuel;Lmezz/jei/api/gui/ingredient/IRecipeSlotsView;Lcom/mojang/blaze3d/vertex/PoseStack;DD)V",
     remap = false, at = @At("TAIL"))
     private void addSecondText(BlastFurnaceFuel recipe, IRecipeSlotsView recipeSlotsView, PoseStack transform, double mouseX, double mouseY, CallbackInfo ci){
-        if(!multFlag) return;
-        String improvedBurnTime = I18n.get("desc.immersiveengineering.info.seconds", Utils.formatDouble((recipe.burnTime)*CommonConfig.IMPROVED_FUEL_MULT.get()/20, "#.##"));
-        ClientUtils.font().draw(transform, improvedBurnTime, 40, 23, 0x777777);
+        Component hoverHint = Component.translatable("compressedengineering.jei.blastfuel.hover");
+        String improvedBurnTime = I18n.get("desc.immersiveengineering.info.seconds", Utils.formatDouble((double) ((recipe.burnTime) * CommonConfig.IMPROVED_FUEL_MULT.get().get(0)) /20, "#.##"));
+        ClientUtils.font().draw(transform, hoverHint.getString(), 40, 23, 0x777777);
     }
-
 
 
 }
