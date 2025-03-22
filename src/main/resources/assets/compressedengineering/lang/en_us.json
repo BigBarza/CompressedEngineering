@@ -8,6 +8,10 @@
   "compressedengineering.jei.spoils_guide": "The excavator can fail to produce an output and instead produce a spoil. This check is done twice, first with the vein's base failure chance, and a second time with a chance based on the saturation, determined by how close the excavator is to the middle of the vein",
   "compressedengineering.jei.core_sample_disclaimer": "Disclaimer: This core sample is just here as an example and does not reflect this world's mineral veins.",
   "compressedengineering.jei.vein_weight_1": "Weight: %s",
-  "compressedengineering.jei.vein_weight_2": "A higher weight value makes the vein more frequent compared to other veins."
-
+  "compressedengineering.jei.vein_weight_2": "A higher weight value makes the vein more frequent compared to other veins.",
+  "compressedengineering.jei.blastfuel": "Adding Blast Furnace Preheaters gives the folliwing burn times:",
+  "compressedengineering.jei.blastfuel.hover": "<- More Info",
+  "compressedengineering.jei.no_preheaters": "No Preheaters: %s Seconds (%sx Speed)",
+  "compressedengineering.jei.one_preheater": "One Preheater: %s Seconds (%sx Speed)",
+  "compressedengineering.jei.both_preheaters": "Both Preheaters: %s Seconds (%sx Speed)"
 }

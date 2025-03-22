@@ -13,6 +13,7 @@
     "arcfurnace.ArcFurnaceStateMixin",
     "blastfurnace.BlastFuelJEIMixin",
     "blastfurnace.BlastFurnaceBurnTimeMixin",
+    "blastfurnace.FuelBurnTimeMixin",
     "blastfurnace.ImprovedBlastSpeedMixin",
     "cokeoven.CokeOvenBlockEntityMixin",
     "cokeoven.CokeOvenJEIMixin",
