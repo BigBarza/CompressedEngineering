@@ -20,27 +20,34 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ArcFurnaceStateMixin implements IStateProxy {
     @Shadow(remap = false)
     public ItemStackHandler inventory;
+    private ItemStackHandler electrodeInventory;
     private StoredCapability<IItemHandler> electrodeHandler;
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void onInit(IInitialMultiblockContext ctx, CallbackInfo ci){
         //ElectrodeItemStackHandler electrode = (ElectrodeItemStackHandler) inventory;
-        inventory = new ItemStackHandler(26){
+        electrodeInventory = new ItemStackHandler(26){
+            //The previous method isn't working so the checking has to be done here.
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack){
-                if(slot >= 23 && slot < 26){
-                    return IEItems.Misc.GRAPHITE_ELECTRODE.asItem().equals(stack.getItem());
+            public ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate){
+                if(!IEItems.Misc.GRAPHITE_ELECTRODE.asItem().equals(stack.getItem())) return stack;
+                ItemStack stackCopy = stack.copy();
+                ItemStack returnCopy = stack.copy();
+                returnCopy.shrink(1);
+                stackCopy.setCount(1);
+                if(inventory.getStackInSlot(slot) == ItemStack.EMPTY){
+                    inventory.insertItem(slot, stackCopy, simulate);
+                    return returnCopy;
                 }
-                else return true;
+                else return stack;
             }
             @Override
-            public int getStackLimit(int slot, @NotNull ItemStack stack){
-                if(slot >= 23 && slot < 26) return 1;
-                else return super.getStackLimit(slot, stack);
+            public ItemStack extractItem(int slot, int amount, boolean simulate){
+                return inventory.extractItem(slot, amount, simulate);
             }
         };
         electrodeHandler = new StoredCapability<>(
-                new WrappingItemHandler(inventory, true, true, new WrappingItemHandler.IntRange(23, 26)));
+                new WrappingItemHandler(electrodeInventory, true, true, new WrappingItemHandler.IntRange(23, 26)));
     }
 
     public StoredCapability<IItemHandler> getElectrodeHandler() {
