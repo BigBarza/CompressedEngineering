@@ -6,6 +6,7 @@
   "refmap": "compressedengineering.refmap.json",
   "mixins": [
     "AssemblerRecipeMixin",
+    "BlueprintRenderMixin",
     "ConcreteFluidMixin",
     "ModWorkbenchSlotsMixin",
     "arcfurnace.ArcFurnaceMixin",
