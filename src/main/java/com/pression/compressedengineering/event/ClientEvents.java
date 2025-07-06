@@ -17,7 +17,7 @@ public class ClientEvents {
     public static void onTextureStitch(TextureStitchEvent.Pre e){
         if(!e.getAtlas().location().equals(TextureAtlas.LOCATION_BLOCKS)) return;
         ResourceManager manager = Minecraft.getInstance().getResourceManager();
-        for(ResourceLocation rl : manager.listResources("textures/blueprint/", s -> s.getPath().endsWith(".png")).keySet()){
+        for(ResourceLocation rl : manager.listResources("textures/blueprint", s -> s.getPath().endsWith(".png")).keySet()){
             //Some fixing is needed to get the correct format.
             e.addSprite(new ResourceLocation(rl.getNamespace(), rl.getPath().substring("textures/".length(), rl.getPath().length() - ".png".length())));
         }
