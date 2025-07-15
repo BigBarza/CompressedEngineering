@@ -1,4 +1,4 @@
-package com.pression.compressedengineering.mixin;
+package com.pression.compressedengineering.mixin.workbench;
 
 import blusunrize.immersiveengineering.common.gui.ModWorkbenchContainer;
 import org.spongepowered.asm.mixin.Mixin;

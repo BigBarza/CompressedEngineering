@@ -6,9 +6,7 @@
   "refmap": "compressedengineering.refmap.json",
   "mixins": [
     "AssemblerRecipeMixin",
-    "BlueprintRenderMixin",
     "ConcreteFluidMixin",
-    "ModWorkbenchSlotsMixin",
     "arcfurnace.ArcFurnaceMixin",
     "arcfurnace.ArcFurnaceRecipeMixin",
     "arcfurnace.IEBlockEntityMixin",
@@ -20,7 +18,12 @@
     "cokeoven.CokeOvenJEIMixin",
     "cokeoven.CokeOvenRecipeMixin",
     "cokeoven.CokeOvenSerializerMixin",
-    "cokeoven.RecipeGetterMixin"
+    "cokeoven.RecipeGetterMixin",
+    "workbench.AutoWorkBenchBEMixin",
+    "workbench.BlueprintRecipeMixin",
+    "workbench.BlueprintRenderMixin",
+    "workbench.IESlotMixin",
+    "workbench.ModWorkbenchSlotsMixin"
   ],
   "client": [],
   "injectors": {
