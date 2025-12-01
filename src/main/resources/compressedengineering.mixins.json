@@ -19,7 +19,10 @@
     "cokeoven.CokeOvenJEIMixin",
     "cokeoven.CokeOvenRecipeMixin",
     "cokeoven.CokeOvenSerializerMixin",
-    "cokeoven.RecipeGetterMixin"
+    "cokeoven.RecipeGetterMixin",
+    "workbench.BlueprintRecipeMixin",
+    "workbench.BlueprintRenderMixin",
+    "workbench.IESlotMixin"
   ],
   "client": [],
   "injectors": {
