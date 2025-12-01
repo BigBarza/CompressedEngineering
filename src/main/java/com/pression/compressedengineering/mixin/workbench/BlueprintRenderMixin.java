@@ -42,7 +42,6 @@ public class BlueprintRenderMixin {
             at = @At(value = "INVOKE", target = "Ljava/util/List;isEmpty()Z"), remap = false, locals = LocalCapture.CAPTURE_FAILHARD)
     private static void rewriteTexture(ItemStack stack, Level world, CallbackInfoReturnable<BlueprintRenderer.BlueprintLines> cir, Player player, List<TextureAtlasSprite> images) {
         TextureAtlasSprite texture = getTexture(ForgeRegistries.ITEMS.getKey(stack.getItem()));
-        System.out.println(texture.contents().name());
         if (texture != null && texture.contents().name() != MissingTextureAtlasSprite.getLocation()) {
             images.clear();
             images.add(texture);
