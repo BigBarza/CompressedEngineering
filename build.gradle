@@ -128,6 +128,7 @@ repositories {
         url 'https://maven.blamejared.com'
     }
     maven { url 'https://maven.parchmentmc.org' }
+    maven { url 'https://maven.createmod.net' }
 }
 
 mixin {
@@ -146,6 +147,7 @@ dependencies {
     implementation fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${version_ie}")
     implementation fg.deobf("mezz.jei:jei-1.20.1-forge-api:${version_jei}")
     implementation fg.deobf("mezz.jei:jei-1.20.1-common-api:${version_jei}")
+    compileOnly fg.deobf("com.simibubi.create:create-1.20.1:${version_create}:all")// { transitive = false }
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
     // runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}") // Adds the full JEI mod as a runtime dependency

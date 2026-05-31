@@ -20,6 +20,7 @@
     "cokeoven.CokeOvenRecipeMixin",
     "cokeoven.CokeOvenSerializerMixin",
     "cokeoven.RecipeGetterMixin",
+    "createmod.HarvesterMixin",
     "workbench.BlueprintRecipeMixin",
     "workbench.BlueprintRenderMixin",
     "workbench.IESlotMixin"

@@ -24,13 +24,13 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 @Mixin(ConcreteFluid.class)
 public class ConcreteFluidMixin {
 
-    @Unique //This just saves the config value for faster reference.
-    private static final boolean ENABLE_ALT_IMPL = CommonConfig.ALT_CONCRETE.get();
+//    @Unique //This just saves the config value for faster reference.
+//    private static final boolean ENABLE_ALT_IMPL = CommonConfig.ALT_CONCRETE.get();
 
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lblusunrize/immersiveengineering/common/fluids/ConcreteFluid;isSource(Lnet/minecraft/world/level/material/FluidState;)Z"),
             cancellable = true, locals = LocalCapture.CAPTURE_FAILSOFT)
     private void onTick(Level world, BlockPos pos, FluidState state, CallbackInfo ci, int timer, int level, int quantaRemaining, boolean mayDry){
-        if(!ENABLE_ALT_IMPL) return;
+        if(!CommonConfig.ALT_CONCRETE.get()) return;
         mayDry = false; //Disable normal drying.
         if(!state.isSource()) ci.cancel(); //Don't do anything else on non-source blocks.
         else if (timer >= 31){ //Solidification time
