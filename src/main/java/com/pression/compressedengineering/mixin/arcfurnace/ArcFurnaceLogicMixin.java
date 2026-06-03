@@ -18,8 +18,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 //This mixin implements the capability to automatically input and output electrodes from the arc furnace.
 @Mixin(ArcFurnaceLogic.class)
 public class ArcFurnaceLogicMixin {
-//    @Unique
-//    private static final boolean AUTOMATION_ALLOWED = CommonConfig.ELECTRODE_AUTOMATION.get();
 
     @Unique
     private BlockPos ELECTRODE_POS = new BlockPos(2,4,2);

@@ -14,7 +14,6 @@ import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.AABB;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -23,9 +22,6 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 //This mixin adds the alternate implementation of liquid concrete hardening.
 @Mixin(ConcreteFluid.class)
 public class ConcreteFluidMixin {
-
-//    @Unique //This just saves the config value for faster reference.
-//    private static final boolean ENABLE_ALT_IMPL = CommonConfig.ALT_CONCRETE.get();
 
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lblusunrize/immersiveengineering/common/fluids/ConcreteFluid;isSource(Lnet/minecraft/world/level/material/FluidState;)Z"),
             cancellable = true, locals = LocalCapture.CAPTURE_FAILSOFT)
