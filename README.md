@@ -13,6 +13,8 @@ This mod contains assorted tweaks to Immersive Engineering made primarily for th
 - Configurable multiplier for fuel duration in the improved blast furnace. Modifies the JEI category for fuel burn time if set to anything other than 1.
 - Customizable values for the improved blast furnace's base speed and speed with preheaters.
 - Alternative implementation for liquid concrete hardening where it hardens all at once starting from the source. Toggleable in configs, if disabled, the old system will be used instead.
+- A tweak to let Create harvesters harvest hemp properly (Create mod not required)
+- Some tweaks to allow blueprint recipes with more than one stack of a given input.
 
 Curseforge link: https://legacy.curseforge.com/minecraft/mc-mods/compressed-engineering
 
