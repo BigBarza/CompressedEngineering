@@ -21,8 +21,10 @@
     "cokeoven.CokeOvenSerializerMixin",
     "cokeoven.RecipeGetterMixin",
     "createmod.HarvesterMixin",
+    "workbench.AutoWorkBenchBEMixin",
     "workbench.BlueprintRecipeMixin",
     "workbench.BlueprintRenderMixin",
+    "workbench.MultiBlockProcessMixin",
     "workbench.IESlotMixin"
   ],
   "client": [],

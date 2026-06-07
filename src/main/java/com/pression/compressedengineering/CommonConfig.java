@@ -12,6 +12,7 @@ public class CommonConfig {
     public static final ForgeConfigSpec.ConfigValue<List<? extends Integer>> PREHEATER_BOOST;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ALT_CONCRETE;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ELECTRODE_AUTOMATION;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ALT_BP_RECIPE_COUNT_CHECK;
 
     static {
         BUILDER.push("Compressed Engineering Config");
@@ -23,6 +24,8 @@ public class CommonConfig {
                 .define("Liquid Concrete Rework", true);
         ELECTRODE_AUTOMATION = BUILDER.comment("Allows automatic insertion of graphite electrodes in the arc furnace through the holder on top.")
                 .define("Arc Furnace Electrode Automation", true);
+        ALT_BP_RECIPE_COUNT_CHECK = BUILDER.comment("Enable bypassing some restrictions in order to allow having more than one stack of an input in blueprint recipes. This config is here as a failsafe should something break.")
+                .define("Enable Oversized Blueprint Crafting Recipes", true);
         BUILDER.pop();
         SPEC = BUILDER.build();
     }
