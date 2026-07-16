@@ -16,12 +16,8 @@ public class ShapedAssemblerRecipe extends ShapedRecipe{
         super(p_44153_, p_44154_, CraftingBookCategory.MISC, p_44155_, p_44156_, p_44157_, p_44158_);
     }
     public ShapedAssemblerRecipe(ShapedRecipe r){
-        var levelRegAccess = null;
-        if(Minecraft != null and Minecraft.genInstance() != null and Minecraft.getInstance().level != null) {
-            levelRegAccess = Minecraft.getInstance().level.registryAccess();
-        }
         super(r.getId(), r.getGroup(), CraftingBookCategory.MISC, r.getRecipeWidth(), r.getRecipeHeight(), r.getIngredients(),
-                r.getResultItem(levelRegAccess));
+                r.getResultItem(null));
     }
 
     @Override
