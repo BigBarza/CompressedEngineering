@@ -15,8 +15,12 @@ public class ShapelessAssemblerRecipe extends ShapelessRecipe {
         super(p_44246_, p_44247_, CraftingBookCategory.MISC, p_44248_, p_44249_);
     }
     public ShapelessAssemblerRecipe(ShapelessRecipe r){
+        var levelRegAccess = null;
+        if(Minecraft != null and Minecraft.genInstance() != null and Minecraft.getInstance().level != null) {
+            levelRegAccess = Minecraft.getInstance().level.registryAccess();
+        }
         super(r.getId(), r.getGroup(), CraftingBookCategory.MISC,
-                r.getResultItem(Minecraft.getInstance().level != null ? Minecraft.getInstance().level.registryAccess() : null), r.getIngredients());
+                r.getResultItem(levelRegAccess), r.getIngredients());
     }
 
     @Override
