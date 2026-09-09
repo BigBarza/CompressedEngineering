@@ -16,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+//This mixin handles part of the logic to allow automatic insertion of electrodes in the arc furnace.
 @Mixin(ArcFurnaceLogic.State.class)
 public class ArcFurnaceStateMixin implements IStateProxy {
     @Shadow(remap = false)

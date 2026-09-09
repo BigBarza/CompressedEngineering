@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+//This mixin disables some logic at the end of multiblock processes for the automated workbench which break recipes with oversized inputs
 @Mixin(MultiblockProcessInWorld.class)
 public class MultiBlockProcessMixin {
     @Inject(method = "processFinish(Lblusunrize/immersiveengineering/common/blocks/multiblocks/process/ProcessContext$ProcessContextInWorld;Lblusunrize/immersiveengineering/api/multiblocks/blocks/env/IMultiblockLevel;)V"

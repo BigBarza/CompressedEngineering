@@ -20,6 +20,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.ArrayList;
 import java.util.List;
 
+//This mixin changes the leftover items behaviour for the Engineer's Workbench.
+//The purpose is to make them friendlier to use with other mechanics in Compression.
 @Mixin(IESlot.BlueprintOutput.class)
 public class IESlotMixin {
     @Shadow(remap = false) @Final public BlueprintCraftingRecipe recipe;

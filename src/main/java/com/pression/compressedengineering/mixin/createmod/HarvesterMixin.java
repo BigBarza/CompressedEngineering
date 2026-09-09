@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+//This mixin fixes the behavioud of hemp crops with Create harvesters.
 @Mixin(value = HarvesterMovementBehaviour.class, remap = false)
 @Pseudo
 public class HarvesterMixin {
