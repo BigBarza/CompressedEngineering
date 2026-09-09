@@ -13,6 +13,8 @@ public class CommonConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> ALT_CONCRETE;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ELECTRODE_AUTOMATION;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ALT_BP_RECIPE_COUNT_CHECK;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> NUKE_RECYCLING;
+
 
     static {
         BUILDER.push("Compressed Engineering Config");
@@ -26,6 +28,8 @@ public class CommonConfig {
                 .define("Arc Furnace Electrode Automation", true);
         ALT_BP_RECIPE_COUNT_CHECK = BUILDER.comment("Enable bypassing some restrictions in order to allow having more than one stack of an input in blueprint recipes. This config is here as a failsafe should something break.")
                 .define("Enable Oversized Blueprint Crafting Recipes", true);
+        NUKE_RECYCLING = BUILDER.comment("Disable the automatically created recycling recipes for the arc furnace.")
+                .define("Wipe Arc Furnace Recycling Recipes", false);
         BUILDER.pop();
         SPEC = BUILDER.build();
     }

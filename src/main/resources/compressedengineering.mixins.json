@@ -11,6 +11,7 @@
     "arcfurnace.ArcFurnaceLogicMixin",
     "arcfurnace.ArcFurnaceRecipeMixin",
     "arcfurnace.ArcFurnaceStateMixin",
+    "arcfurnace.ArcRecyclingCalculatorMixin",
     "blastfurnace.BlastFuelJEIMixin",
     "blastfurnace.BlastFurnaceBurnTimeMixin",
     "blastfurnace.FuelBurnTimeMixin",
@@ -24,8 +25,8 @@
     "workbench.AutoWorkBenchBEMixin",
     "workbench.BlueprintRecipeMixin",
     "workbench.BlueprintRenderMixin",
-    "workbench.MultiBlockProcessMixin",
-    "workbench.IESlotMixin"
+    "workbench.IESlotMixin",
+    "workbench.MultiBlockProcessMixin"
   ],
   "client": [],
   "injectors": {
