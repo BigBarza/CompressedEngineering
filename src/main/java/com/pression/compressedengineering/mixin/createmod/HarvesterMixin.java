@@ -17,9 +17,23 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Pseudo
 public class HarvesterMixin {
     @Inject(method = "cutCrop", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getBlock()Lnet/minecraft/world/level/block/Block;", ordinal = 0, remap = true), cancellable = true)
-    private void handleHemp(Level world, BlockPos pos, BlockState state, CallbackInfoReturnable<BlockState> cir) {
-        if(state.getBlock() instanceof HempBlock) {
+    private void handleCutCrop(Level world, BlockPos pos, BlockState state, CallbackInfoReturnable<BlockState> cir) {
+        if(state.getBlock() instanceof HempBlock && state.getValue(HempBlock.TOP)) {
             cir.setReturnValue(Blocks.AIR.defaultBlockState());
+        }
+    }
+
+    @Inject(method = "isValidCrop", at = @At(value = "HEAD",remap = true), cancellable = true)
+    private void hempValidCrop(Level world, BlockPos pos, BlockState state, CallbackInfoReturnable<Boolean> cir){
+        if(state.getBlock() instanceof HempBlock && state.getValue(HempBlock.TOP)) {
+            cir.setReturnValue(false);
+        }
+    }
+
+    @Inject(method = "isValidOther", at = @At(value = "HEAD",remap = true), cancellable = true)
+    private void hempValidOther(Level world, BlockPos pos, BlockState state, CallbackInfoReturnable<Boolean> cir){
+        if(state.getBlock() instanceof HempBlock && state.getValue(HempBlock.TOP)) {
+            cir.setReturnValue(true);
         }
     }
 }
