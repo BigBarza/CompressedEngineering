@@ -16,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(value = HarvesterMovementBehaviour.class, remap = false)
 @Pseudo
 public class HarvesterMixin {
+    //Fixes harvesters replacing the top block of hemp crops with...something. A ghost block? Whatever it is, it jams the crop and farm.
     @Inject(method = "cutCrop", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getBlock()Lnet/minecraft/world/level/block/Block;", ordinal = 0, remap = true), cancellable = true)
     private void handleCutCrop(Level world, BlockPos pos, BlockState state, CallbackInfoReturnable<BlockState> cir) {
         if(state.getBlock() instanceof HempBlock && state.getValue(HempBlock.TOP)) {
@@ -23,6 +24,8 @@ public class HarvesterMixin {
         }
     }
 
+    //These two make the hemp recognized as "harvestable" but not strictly a "crop"
+    //Doing so, prevents create from subtracting a seed, making the crop yield no seeds at all.
     @Inject(method = "isValidCrop", at = @At(value = "HEAD",remap = true), cancellable = true)
     private void hempValidCrop(Level world, BlockPos pos, BlockState state, CallbackInfoReturnable<Boolean> cir){
         if(state.getBlock() instanceof HempBlock && state.getValue(HempBlock.TOP)) {
